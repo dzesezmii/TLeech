@@ -13,14 +13,13 @@ RUN apt -qq update && \
     software-properties-common && \
     apt clean && \
     rm -fr /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
-    apt-add-repository non-free && \
     curl https://rclone.org/install.sh | bash
     
 RUN wget -qO - https://ftp-master.debian.org/keys/archive-key-10.asc | apt-key add - && \
     echo deb http://deb.debian.org/debian buster main contrib non-free | tee -a /etc/apt/sources.list && \
     apt -qq update && \
     DEBIAN_FRONTEND=noninteractive apt -qq install -y unrar && \
-    apt purge -y software-properties-common && \
+    DEBIAN_FRONTEND=noninteractive apt purge -y software-properties-common && \
     apt clean && \
     rm -fr /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
     
