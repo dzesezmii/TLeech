@@ -1,24 +1,21 @@
-FROM ubuntu:20.04
+FROM python:3.8-slim-buster
 
-
-RUN mkdir ./app
-RUN chmod 777 ./app
+RUN mkdir ./app && \
+    chmod 777 ./app
 WORKDIR /app
 
-RUN apt -qq update
+ENV TZ=Europe/London
 
-ENV DEBIAN_FRONTEND=noninteractive
-ENV TZ=Asia/Kolkata
+RUN apt-get -qq update && \
+    DEBIAN_FRONTEND=noninteractive apt-get -qq install -y git aria2 wget curl busybox unzip unrar tar ffmpeg && \
+    apt-get clean && \
+    rm -fr /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
+    curl https://rclone.org/install.sh | bash 
 
-
-RUN apt -qq install -y git aria2 wget curl busybox unzip unrar tar python3 ffmpeg python3-pip
-RUN wget https://rclone.org/install.sh
-RUN bash install.sh
-
-RUN mkdir /app/gautam
-RUN wget -O /app/gautam/gclone.gz https://git.io/JJMSG
-RUN gzip -d /app/gautam/gclone.gz
-RUN chmod 0775 /app/gautam/gclone
+RUN mkdir /app/gautam && \
+    wget -O /app/gautam/gclone.gz https://git.io/JJMSG && \
+    gzip -d /app/gautam/gclone.gz && \
+    chmod 0775 /app/gautam/gclone
 
 COPY requirements.txt .
 RUN pip3 install --no-cache-dir -r requirements.txt
