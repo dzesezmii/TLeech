@@ -7,7 +7,8 @@ ENV LANG C.UTF-8
 ENV TZ=Europe/London
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN sed -i.bak 's/us-west-2\.ec2\.//' /etc/apt/sources.list && \
+#us-east-1 eu-west-1
+RUN sed -i.bak 's/eu-west-1\.ec2\.//' /etc/apt/sources.list && \
     apt -qq update && \
     apt -qq install -y --no-install-recommends \
         git \
