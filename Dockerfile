@@ -9,7 +9,9 @@ ENV LANG C.UTF-8
 ENV TZ=Europe/London
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN apt -qq update && \
+#us-east-1 eu-west-1
+RUN sed -i.bak 's/us-east-1\.ec2\.//' /etc/apt/sources.list && \
+    apt -qq update && \
     apt -qq install -y --no-install-recommends \
       git \
       aria2 \
