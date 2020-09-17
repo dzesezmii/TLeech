@@ -30,6 +30,9 @@ RUN mkdir -p /app/gautam && \
     wget -O /app/gautam/gclone.gz https://git.io/JJMSG && \
     gzip -d /app/gautam/gclone.gz && \
     chmod 0775 /app/gautam/gclone
+    apt purge -y git && \
+    apt clean && \
+    rm -fr /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 COPY requirements.txt .
 RUN pip3 install --no-cache-dir -r requirements.txt
