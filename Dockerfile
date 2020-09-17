@@ -31,7 +31,7 @@ RUN sed -i.bak 's/us-east-1\.ec2\.//' /etc/apt/sources.list && \
 RUN mkdir -p /app/gautam && \
     wget -O /app/gautam/gclone.gz https://git.io/JJMSG && \
     gzip -d /app/gautam/gclone.gz && \
-    chmod 0775 /app/gautam/gclone
+    chmod 0775 /app/gautam/gclone && \
     apt purge -y git && \
     apt clean && \
     rm -fr /var/lib/apt/lists/* /tmp/* /var/tmp/*
